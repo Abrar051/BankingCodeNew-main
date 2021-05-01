@@ -5,7 +5,7 @@ public class CreateDataBase {
     static final String url = "jdbc:mysql://localhost/";
     static final String user = "root";
     static final String pass = "password";
-    public static void main(String[] args) {
+    public void createDatabase () {
         Connection conn = null;
         Statement st = null;
         try {
@@ -14,7 +14,7 @@ public class CreateDataBase {
             conn = DriverManager.getConnection(url,user,pass);
             System.out.println("Creating database");
             st= conn.createStatement();
-            String sql = "Create Database registration";
+            String sql = "Create Database Registration";
             st.executeUpdate(sql);
             System.out.println("Database created successfully");
         }catch (SQLException e){

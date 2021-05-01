@@ -7,8 +7,8 @@ public class JavaMysqlPreparedStatementInsertExample
         try
         {
             // create a mysql database connection
-            String myDriver = "org.gjt.mm.mysql.Driver";
-            String myUrl = "jdbc:mysql://localhost/test";
+            String myDriver = "com.mysql.jdbc.Driver";
+            String myUrl = "jdbc:mysql://localhost";
             Class.forName(myDriver);
             Connection conn = DriverManager.getConnection(myUrl, "root", "password");
 
