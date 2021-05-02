@@ -1,10 +1,12 @@
+package StudentDatabase;
 
+//STEP 1. Import required packages
 import java.sql.*;
 
-public class CreateTable {
+public class DeleteRecords {
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/Registration";
+    static final String DB_URL = "jdbc:mysql://localhost/STUDENTS";
 
     //  Database credentials
     static final String USER = "root";
@@ -21,17 +23,33 @@ public class CreateTable {
             System.out.println("Connecting to a selected database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connected database successfully...");
-            System.out.println("Creating table in given database...");
-            stmt = conn.createStatement();
-            String sql = "CREATE TABLE Registration " +
-                    "(id INTEGER not NULL, " +
-                    " first VARCHAR(255), " +
-                    " last VARCHAR(255), " +
-                    " age INTEGER, " +
-                    " PRIMARY KEY ( id ))";
 
+            //STEP 4: Execute a query
+            System.out.println("Creating statement...");
+            stmt = conn.createStatement();
+            String sql = "DELETE FROM Registration " +
+                    "WHERE id = 101";
             stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+
+            // Now you can extract all the records
+            // to see the remaining records
+            sql = "SELECT id, first, last, age FROM Registration";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                //Retrieve by column name
+                int id  = rs.getInt("id");
+                int age = rs.getInt("age");
+                String first = rs.getString("first");
+                String last = rs.getString("last");
+
+                //Display values
+                System.out.print("ID: " + id);
+                System.out.print(", Age: " + age);
+                System.out.print(", First: " + first);
+                System.out.println(", Last: " + last);
+            }
+            rs.close();
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -51,7 +69,7 @@ public class CreateTable {
             }catch(SQLException se){
                 se.printStackTrace();
             }//end finally try
-        }//end
+        }//end try
         System.out.println("Goodbye!");
-    }
-}
+    }//end main
+}//end JDBCExample
